@@ -1,0 +1,15 @@
+{
+  "name": "blockchain.js",
+  "version": "1.0.0",
+  "description": "",
+  "main": "Main.js",
+  "scripts": {
+    "start": "node .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Archan Patkar",
+  "license": "ISC",
+  "dependencies": {
+    "prettyjson": "^1.2.1"
+  }
+}
