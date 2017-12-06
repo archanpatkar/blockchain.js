@@ -8,6 +8,8 @@ class Block
     this.data = data;
     this.previousHash = previousHash;
     this.hash = this.getHash()
+    Object.seal(this);
+    Object.freeze(this);
   }
 
   getHash()
