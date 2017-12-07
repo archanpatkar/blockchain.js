@@ -6,10 +6,9 @@ var b = new Blockchain();
 b.addBlock(1);
 b.addBlock(2);
 b.addBlock(3);
-
-print(b.get())
+b.addBlock(4);
 
 for(var block of b.getBlocks())
 {
-  print(block)
+  print(block);
 }

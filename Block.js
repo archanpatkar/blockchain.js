@@ -7,9 +7,24 @@ class Block
     this.timestamp = new Date().getTime();
     this.data = data;
     this.previousHash = previousHash;
-    this.hash = this.getHash()
+    this.nonce = 0;
+    this.hash = this.getHash();
+  }
+
+  seal()
+  {
     Object.seal(this);
     Object.freeze(this);
+  }
+
+  mine(difficulty)
+  {
+      console.log("Mining");
+      while(!this.hash.startsWith("0".repeat(difficulty)))
+      {
+          this.nonce++;
+          this.hash = this.getHash();
+      }
   }
 
   getHash()
@@ -19,7 +34,7 @@ class Block
 
   getData()
   {
-      return this.previousHash + this.timestamp + this.data
+      return this.previousHash + this.timestamp + this.data + this.nonce
   }
 }
 
