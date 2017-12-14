@@ -17,6 +17,44 @@ class Blockchain
     this.previousHash = block.hash;
     block.seal();
     this.chain.set(block.hash, block);
+    if(this.valid())
+    {
+      return
+    }
+    else
+    {
+      throw new Error("Blockchain Invalidated")
+    }
+  }
+
+  valid()
+  {
+    var currentBlock = this.chain.get(this.previousHash);
+    var lastBlock = this.chain.get(currentBlock.previousHash);
+    for(var i = 0; i < this.chain.size; i++)
+    {
+
+      if(currentBlock !== undefined && lastBlock !== undefined)
+      {
+          if(currentBlock.hash != currentBlock.getHash())
+          {
+            return false;
+          }
+
+          if(currentBlock.previousHash != lastBlock.hash)
+          {
+            return false;
+          }
+
+          currentBlock = lastBlock;
+          lastBlock = this.chain.get(currentBlock.previousHash);
+      }
+      else
+      {
+        break;
+      }
+    }
+    return true;
   }
 
   * getBlocks()
