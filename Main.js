@@ -1,7 +1,7 @@
 const print = require('./Print');
 const Blockchain = require('./Blockchain');
 
-var b = new Blockchain(difficulty=8);
+var b = new Blockchain(difficulty=2);
 
 b.addBlock(1);
 b.addBlock(2);
@@ -16,3 +16,5 @@ for(var block of b.getBlocks())
 {
   print(block);
 }
+
+print(b)

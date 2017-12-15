@@ -1,13 +1,37 @@
 var Block = require('./Block');
+var cryptographer = require('crypto-js');
+var fs = require("fs");
 
 class Blockchain
 {
-  constructor(difficulty = 4)
+  constructor(difficulty = 4,uuid="")
   {
+    if(uuid == "")
+    {
+      this.uuid =  cryptographer.SHA1(new Date().getTime() +  Blockchain.counter++).toString();
+    }
     this.chain = new Map();
     this.previousHash = null;
     this.difficulty = difficulty;
     this.addBlock("Genesis Block");
+  }
+
+  proofChain()
+  {
+    var chain = {};
+    chain.uuid = this.uuid;
+    chain.difficulty = this.difficulty;
+    chain.previousHash = this.previousHash;
+    chain.chain = {};
+    var lastBlock = this.chain.get(this.previousHash);
+    for(var i = 0; i < this.chain.size; i++){
+      if(lastBlock != undefined)
+      {
+        chain.chain[lastBlock.hash] = lastBlock;
+        lastBlock = this.chain.get(lastBlock.previousHash)
+      }
+    }
+    return chain;
   }
 
   addBlock(data)
@@ -19,7 +43,7 @@ class Blockchain
     this.chain.set(block.hash, block);
     if(this.valid())
     {
-      return
+      this.persist();
     }
     else
     {
@@ -69,6 +93,15 @@ class Blockchain
     }
   }
 
+  persist()
+  {
+    if (!fs.existsSync(`${__dirname}/data`)){
+      fs.mkdirSync(`${__dirname}/data`);
+    }
+    fs.writeFileSync(`${__dirname}/data/${this.uuid}.chain`,JSON.stringify(this.proofChain(), null, 4))
+  }
+
 }
 
+Blockchain.counter = 0;
 module.exports = Blockchain;
