@@ -8,7 +8,7 @@ class Blockchain
   {
     if(uuid == "")
     {
-      this.uuid =  cryptographer.SHA1(new Date().getTime() +  Blockchain.counter++).toString();
+      this.uuid =  cryptographer.SHA1(new Date().getTime() +  difficulty).toString();
     }
     this.chain = new Map();
     this.previousHash = null;
@@ -103,5 +103,4 @@ class Blockchain
 
 }
 
-Blockchain.counter = 0;
 module.exports = Blockchain;
