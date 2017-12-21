@@ -2,7 +2,7 @@
   "name": "blockchain.js",
   "version": "1.0.0",
   "description": "",
-  "main": "Main.js",
+  "main": "Server.js",
   "scripts": {
     "start": "node ."
   },
