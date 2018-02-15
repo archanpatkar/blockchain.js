@@ -1,2 +1,3 @@
-# blockchain.js
-An implementation of Blockchain using Node.js
+# ![blockchain.js](./blockchain.js.svg)
+
+### An implementation of Blockchain using Node.js
